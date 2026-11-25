@@ -1,0 +1,101 @@
+#include <stdio.h>
+
+int main()
+{
+    int sno[50], qty[50];
+    char name[50][50];
+    float price[50];
+
+    int count = 0, choice, i, n, sell;
+
+    while (1)
+    {
+        printf("\n1. Add Medicine\n");
+        printf("2. View Medicines\n");
+        printf("3. Sell Medicine\n");
+        printf("4. Exit\n");
+
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                if (count == 50)
+                {
+                    printf("Stock is full!\n");
+                }
+                else
+                {
+                    sno[count] = count + 1;
+
+                    printf("Enter name: ");
+                    scanf(" %[^\n]", name[count]);
+
+                    printf("Enter quantity: ");
+                    scanf("%d", &qty[count]);
+
+                    printf("Enter price: ");
+                    scanf("%f", &price[count]);
+
+                    count++;
+                    printf("Medicine added!\n");
+                }
+                break;
+
+            case 2:
+                if (count == 0)
+                {
+                    printf("No medicines found!\n");
+                }
+                else
+                {
+                    printf("\nS.No  Name  Quantity  Price\n");
+
+                    for (i = 0; i < count; i++)
+                    {
+                        printf("%d  %s  %d  %.2f\n",
+                        sno[i], name[i], qty[i], price[i]);
+                    }
+                }
+                break;
+
+            case 3:
+                printf("Enter S.No.: ");
+                scanf("%d", &n);
+
+                if (n < 1 || n > count)
+                {
+                    printf("Invalid S.No.!\n");
+                }
+                else
+                {
+                    printf("Enter quantity to sell: ");
+                    scanf("%d", &sell);
+
+                    if (sell <= 0)
+                    {
+                        printf("Invalid quantity!\n");
+                    }
+                    else if (sell > qty[n - 1])
+                    {
+                        printf("Insufficient stock!\n");
+                    }
+                    else
+                    {
+                        qty[n - 1] = qty[n - 1] - sell;
+                        printf("Sale successful!\n");
+                        printf("Remaining stock: %d\n",
+                        qty[n - 1]);
+                    }
+                }
+                break;
+
+            case 4:
+                return 0;
+
+            default:
+                printf("Invalid choice!\n");
+        }
+    }
+}
